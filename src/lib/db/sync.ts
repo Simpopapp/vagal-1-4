@@ -25,6 +25,15 @@ export type SyncSummary = {
   pulled: number;
 };
 
+/**
+ * Settings keys that never leave this device (PRD2 E3). The user's own API
+ * key lives under `aiProviderKey`; pushing it would store the secret in the
+ * cloud, and pulling it would overwrite another device's key. Both directions
+ * filter this list, so the protection is structural rather than a caller's
+ * responsibility.
+ */
+export const LOCAL_ONLY_SETTINGS: readonly string[] = ["aiProviderKey"];
+
 /* ------------------------------------------------------------------ push */
 
 export async function pushAll(userId: string): Promise<number> {
