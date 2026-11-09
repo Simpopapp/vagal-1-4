@@ -338,6 +338,14 @@ gates finais.
   parcial; entra por `custom` se o usuário quiser. Decisão revistável.
 - Q4. Erro de provedor próprio não pausa a fila (E8): a pausa global existe
   para o 402 do workspace, não para a chave do usuário.
+- Q5. (s2) A seleção de `custom` sem URL válida fica só na tela até a URL ser
+  preenchida — gravar uma config incompleta quebraria a geração em silêncio.
+- Q6. (s2) A chave é salva por botão explícito ("Salvar chave"), não a cada
+  tecla: evita gravar segredos pela metade.
+- Q7. (s1) Corpos de erro HTTP passam por redação da chave antes de virar
+  mensagem — o provedor pode ecoar a chave no erro.
+- Q8. (integração) O worker recebe `routedGenerate`, que resolve a config a
+  cada item: trocar de provedor com fila pendente vale já no próximo item.
 
 ---
 
