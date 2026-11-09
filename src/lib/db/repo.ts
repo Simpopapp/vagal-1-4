@@ -19,6 +19,11 @@ import {
   remove,
 } from "./indexeddb";
 import { STORES, type StoreName } from "./schema";
+import {
+  DEFAULT_PROVIDER_CONFIG,
+  providerConfigSchema,
+  type ProviderConfig,
+} from "@/lib/ai/providers";
 import type {
   Card,
   Dossier,
@@ -278,6 +283,35 @@ export function getTouchMode(fallback: TouchMode = "collect"): Promise<TouchMode
 
 export function setTouchMode(mode: TouchMode): Promise<Settings> {
   return setSetting("touchMode", mode);
+}
+
+/* ---------------------------------------------------- ai provider (PRD2) */
+
+/**
+ * The provider configuration syncs across devices; the API key does not —
+ * `sync.ts` keeps `aiProviderKey` out of push and pull (PRD2 E3).
+ */
+export async function getProviderConfig(): Promise<ProviderConfig> {
+  const raw = await getSetting<string>("aiProvider", "");
+  if (!raw) return DEFAULT_PROVIDER_CONFIG;
+  try {
+    return providerConfigSchema.parse(JSON.parse(raw));
+  } catch {
+    return DEFAULT_PROVIDER_CONFIG;
+  }
+}
+
+export function setProviderConfig(config: ProviderConfig): Promise<Settings> {
+  return setSetting("aiProvider", JSON.stringify(providerConfigSchema.parse(config)));
+}
+
+/** The user's own API key. Local-only, trimmed, "" when absent. */
+export function getProviderKey(): Promise<string> {
+  return getSetting<string>("aiProviderKey", "");
+}
+
+export function setProviderKey(key: string): Promise<Settings> {
+  return setSetting("aiProviderKey", key.trim());
 }
 
 /* --------------------------------------------------------------- helper */
