@@ -36,3 +36,12 @@ export async function resolveGenerator(): Promise<GenerateCardFn> {
       maxOutputTokens: 900,
     });
 }
+
+/**
+ * Resolves the provider on every call, so switching providers with a pending
+ * queue takes effect on the very next item (PRD2 seção 9).
+ */
+export const routedGenerate: GenerateCardFn = async (input) => {
+  const generate = await resolveGenerator();
+  return generate(input);
+};
