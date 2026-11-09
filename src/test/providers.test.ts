@@ -19,8 +19,9 @@ import {
 
 describe("catalog", () => {
   it("keeps the built-in gateway first and marked as the default", () => {
-    expect(PROVIDERS[0].id).toBe("lovable");
-    expect(PROVIDERS[0].needsKey).toBe(false);
+    const first = PROVIDERS[0];
+    expect(first?.id).toBe("lovable");
+    expect(first?.needsKey).toBe(false);
     expect(DEFAULT_PROVIDER_CONFIG).toEqual({ provider: "lovable" });
   });
 
