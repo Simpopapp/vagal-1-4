@@ -48,14 +48,14 @@ describe("listModels", () => {
     const spy = mockFetch(() => Promise.resolve(jsonResponse(200, { data: [] })));
     await listModels({ provider: "groq" }, KEY);
     const init = spy.mock.calls[0]?.[1];
-    expect((init?.headers as Record<string, string>).Authorization).toBe(`Bearer ${KEY}`);
+    expect((init?.headers as Record<string, string>)["Authorization"]).toBe(`Bearer ${KEY}`);
   });
 
   it("omits the Authorization header when there is no key (Ollama, custom)", async () => {
     const spy = mockFetch(() => Promise.resolve(jsonResponse(200, { data: [] })));
     await listModels({ provider: "ollama" }, "");
     const init = spy.mock.calls[0]?.[1];
-    expect((init?.headers as Record<string, string>).Authorization).toBeUndefined();
+    expect((init?.headers as Record<string, string>)["Authorization"]).toBeUndefined();
   });
 
   it("uses the provider's effective base URL", async () => {
