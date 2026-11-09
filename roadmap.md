@@ -1,11 +1,19 @@
-# Roadmap — remix em andamento (project1)
+# Roadmap — remix em andamento (project2)
 
-Fonte de verdade de fases: `.opencode/roadmap-proj1.md`. Este arquivo rastreia o trabalho desta sessão.
+Fonte de verdade de fases: `.opencode/roadmap-proj2.md` (project1 concluído; ver `.opencode/roadmap-proj1.md`). Este arquivo rastreia o trabalho desta sessão.
 
 ## Bloqueio vigente
-- AI gateway responde 402 `payment_required` (probe real em 2026-11-09). Bloqueia: F1 `interpret.ts`, geração real de cards, F5 dossiê, pré-marcação.
+- AI gateway responde 402 `payment_required` (probe real em 2026-11-09). Bloqueia: F1 `interpret.ts`, geração real de cards, F5 dossiê, pré-marcação. O project2 (provedor próprio) é justamente o caminho do usuário para contornar isso.
 
-## Esta sessão — remix iniciado (2026-11-09)
+## Esta sessão — remix reativado (2026-11-09, project2)
+- [x] Banco novo conferido: as 7 tabelas do app existem com RLS + 4 políticas cada (conferido por query); o conjunto de migrations rescaffoldado vazio está coerente com o banco
+- [x] Pilares do project2 criados: `prd-project2.md` + `roadmap-proj2.md` (project2.md já existia)
+- [x] G0 contratos: `providers.ts` (catálogo de 10 provedores, 6 com opção grátis), chaves `aiProvider`/`aiProviderKey` nos tipos, helpers no repo, filtro `LOCAL_ONLY_SETTINGS` no sync (a chave nunca sai do aparelho) — 18 testes verdes, tsgo exit 0
+- [ ] G1 cliente + roteador de IA (subagente s1, em andamento)
+- [ ] G2 seção de provedor nos ajustes (subagente s2, em andamento)
+- [ ] G3 integração + gates globais (agente principal)
+
+## Sessões anteriores — project1 concluído
 - [x] Migrations do remix conferidas: `drizzle/migrations` só tem `_journal.json` com `entries: []`, sem `.sql` copiados, `schema.ts` no placeholder e 0 linhas no diário do banco → histórico coerente com o banco novo (as 7 tabelas do app já existem nele, com RLS + GRANT conferidos por query)
 - [x] Fluxo real no browser verde: busca → "era essa?" → letra do Vagalume → toque na palavra → vocabulário, 0 erros de console
 - [x] Corrigido o dobrador de palavras: `rolling` virava `rol` (e `called`→`cal`, `missed`→`mis`, `taller`→`tal`) porque a regra de consoante dobrada valia também para bases que já terminam dobradas. Agora só dobra o que o sufixo criou; `-e` mudo volta só para terminações seguras; comparativos incertos ficam inteiros

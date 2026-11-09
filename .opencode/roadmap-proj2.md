@@ -4,11 +4,11 @@ Executar em ordem de dependência. Só avança com a linha de Gates verde.
 Marcar `[x]` somente com números reais. Fonte do COMO: `.opencode/prd-project2.md`.
 
 ## G0 — Contratos (agente principal)
-- [ ] `src/lib/ai/providers.ts`: catálogo (10 provedores, badge grátis), `ProviderConfig`, schema zod, `getProviderDef`, `isCustomProvider`
-- [ ] `src/lib/types.ts`: `Settings["key"]` ganha `aiProvider` / `aiProviderKey`
-- [ ] `src/lib/db/repo.ts`: `get/setProviderConfig` + `get/setProviderKey` (trim na chave)
-- [ ] `src/lib/db/sync.ts`: `LOCAL_ONLY_SETTINGS` filtra a chave no push e no pull
-- Gates: `providers.test.ts` verde · `sync-filter.test.ts` verde (chave nunca entra no upsert nem é aplicada no pull) · `tsgo -b --noEmit` exit 0
+- [x] `src/lib/ai/providers.ts`: catálogo (10 provedores, badge grátis), `ProviderConfig`, schema zod, `getProviderDef`, `isCustomProvider`
+- [x] `src/lib/types.ts`: `Settings["key"]` ganha `aiProvider` / `aiProviderKey`
+- [x] `src/lib/db/repo.ts`: `get/setProviderConfig` + `get/setProviderKey` (trim na chave)
+- [x] `src/lib/db/sync.ts`: `LOCAL_ONLY_SETTINGS` filtra a chave no push e no pull
+- Gates: `providers.test.ts` 14 verdes · `sync-filter.test.ts` 4 verdes · `tsgo -b --noEmit` exit 0 (2026-11-09)
 
 ## G1 — Cliente e roteador (subagente s1-cliente-ia)
 - [ ] `src/lib/ai/client.ts`: `listModels` (dedup+ordena), `testConnection` (auth/CORS/rede distintos), `askProviderJson` (zod obrigatório), `ProviderError` tipado
