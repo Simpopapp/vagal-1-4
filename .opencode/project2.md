@@ -1,0 +1,1 @@
+adicione configuração de provedores na aba de ajustes, podendo selecionar entre os principais provedores incluindo alternativas free + opção de digitar/colar url base pra pessoa poder adicionar seu proprio provedor se não tiver na lista (e obviamente todas as opções carregam a listagem de modelos de cada provedor pra pessoa selecionar o modelo).

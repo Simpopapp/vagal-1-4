@@ -1,0 +1,234 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system.
+ *
+ * `:root` is the "paper" appearance (warm notebook page).
+ * `.dark` is the app's committed default: "ink" — a calm, near-ink desk at night.
+ * The app mounts `.dark` on <html>; the light palette stays available.
+ *
+ * Every color uses oklch. Components consume semantic tokens only
+ * (bg-card, text-literal, border-mark) — never raw color utilities.
+ *
+ * Word-card layers each own a token so the three translations are
+ * distinguishable by color AND icon, per the planning:
+ *   literal  — secondary layer, cool neutral
+ *   context  — the hero of the card, warm ochre
+ *   verdict  — right / wrong / mcnc (✓ / ✗ / ◐)
+ *   mark     — the collect-mode marker on a word in the lyrics
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Work Sans", ui-serif, Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* word-card layers */
+  --color-literal: var(--literal);
+  --color-literal-foreground: var(--literal-foreground);
+  --color-context: var(--context);
+  --color-context-foreground: var(--context-foreground);
+  --color-verdict-right: var(--verdict-right);
+  --color-verdict-right-foreground: var(--verdict-right-foreground);
+  --color-verdict-wrong: var(--verdict-wrong);
+  --color-verdict-wrong-foreground: var(--verdict-wrong-foreground);
+  --color-verdict-mcnc: var(--verdict-mcnc);
+  --color-verdict-mcnc-foreground: var(--verdict-mcnc-foreground);
+  --color-mark: var(--mark);
+  --color-mark-foreground: var(--mark-foreground);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* paper */
+  --background: oklch(0.985 0.008 85);
+  --foreground: oklch(0.28 0.02 60);
+  --card: oklch(0.995 0.005 85);
+  --card-foreground: oklch(0.28 0.02 60);
+  --popover: oklch(0.995 0.005 85);
+  --popover-foreground: oklch(0.28 0.02 60);
+  --primary: oklch(0.45 0.12 65);
+  --primary-foreground: oklch(0.985 0.008 85);
+  --secondary: oklch(0.94 0.012 80);
+  --secondary-foreground: oklch(0.32 0.02 60);
+  --muted: oklch(0.945 0.01 80);
+  --muted-foreground: oklch(0.53 0.02 60);
+  --accent: oklch(0.93 0.02 75);
+  --accent-foreground: oklch(0.32 0.02 60);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.985 0.008 85);
+  --border: oklch(0.87 0.015 78);
+  --input: oklch(0.87 0.015 78);
+  --ring: oklch(0.6 0.1 70);
+
+  --chart-1: oklch(0.62 0.14 65);
+  --chart-2: oklch(0.6 0.11 185);
+  --chart-3: oklch(0.45 0.08 240);
+  --chart-4: oklch(0.7 0.15 90);
+  --chart-5: oklch(0.55 0.12 25);
+
+  --sidebar: oklch(0.97 0.01 82);
+  --sidebar-foreground: oklch(0.28 0.02 60);
+  --sidebar-primary: oklch(0.45 0.12 65);
+  --sidebar-primary-foreground: oklch(0.985 0.008 85);
+  --sidebar-accent: oklch(0.93 0.02 75);
+  --sidebar-accent-foreground: oklch(0.32 0.02 60);
+  --sidebar-border: oklch(0.87 0.015 78);
+  --sidebar-ring: oklch(0.6 0.1 70);
+
+  /* word-card layers (paper) */
+  --literal: oklch(0.5 0.025 240);
+  --literal-foreground: oklch(0.985 0.008 85);
+  --context: oklch(0.55 0.14 70);
+  --context-foreground: oklch(0.985 0.008 85);
+  --verdict-right: oklch(0.5 0.14 155);
+  --verdict-right-foreground: oklch(0.985 0.008 85);
+  --verdict-wrong: oklch(0.52 0.19 25);
+  --verdict-wrong-foreground: oklch(0.985 0.008 85);
+  --verdict-mcnc: oklch(0.6 0.13 85);
+  --verdict-mcnc-foreground: oklch(0.28 0.02 60);
+  --mark: oklch(0.55 0.09 200);
+  --mark-foreground: oklch(0.985 0.008 85);
+}
+
+.dark {
+  --radius: 0.625rem;
+
+  /* ink — the app's default climate */
+  --background: oklch(0.16 0.012 265);
+  --foreground: oklch(0.95 0.012 80);
+  --card: oklch(0.2 0.014 265);
+  --card-foreground: oklch(0.95 0.012 80);
+  --popover: oklch(0.21 0.015 265);
+  --popover-foreground: oklch(0.95 0.012 80);
+  --primary: oklch(0.82 0.13 75);
+  --primary-foreground: oklch(0.18 0.02 60);
+  --secondary: oklch(0.26 0.016 265);
+  --secondary-foreground: oklch(0.93 0.012 80);
+  --muted: oklch(0.25 0.015 265);
+  --muted-foreground: oklch(0.7 0.018 80);
+  --accent: oklch(0.28 0.02 265);
+  --accent-foreground: oklch(0.95 0.012 80);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.98 0.008 85);
+  --border: oklch(0.95 0.01 80 / 14%);
+  --input: oklch(0.95 0.01 80 / 20%);
+  --ring: oklch(0.72 0.1 75);
+
+  --chart-1: oklch(0.75 0.14 75);
+  --chart-2: oklch(0.7 0.14 175);
+  --chart-3: oklch(0.72 0.1 240);
+  --chart-4: oklch(0.8 0.15 95);
+  --chart-5: oklch(0.68 0.18 25);
+
+  --sidebar: oklch(0.19 0.013 265);
+  --sidebar-foreground: oklch(0.95 0.012 80);
+  --sidebar-primary: oklch(0.82 0.13 75);
+  --sidebar-primary-foreground: oklch(0.18 0.02 60);
+  --sidebar-accent: oklch(0.28 0.02 265);
+  --sidebar-accent-foreground: oklch(0.95 0.012 80);
+  --sidebar-border: oklch(0.95 0.01 80 / 14%);
+  --sidebar-ring: oklch(0.72 0.1 75);
+
+  /* word-card layers (ink) */
+  --literal: oklch(0.72 0.025 240);
+  --literal-foreground: oklch(0.16 0.012 265);
+  --context: oklch(0.82 0.15 78);
+  --context-foreground: oklch(0.16 0.012 265);
+  --verdict-right: oklch(0.78 0.15 155);
+  --verdict-right-foreground: oklch(0.16 0.012 265);
+  --verdict-wrong: oklch(0.65 0.2 25);
+  --verdict-wrong-foreground: oklch(0.98 0.008 85);
+  --verdict-mcnc: oklch(0.8 0.13 85);
+  --verdict-mcnc-foreground: oklch(0.16 0.012 265);
+  --mark: oklch(0.72 0.1 200);
+  --mark-foreground: oklch(0.16 0.012 265);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Lyrics are the product: generous line height, no justification rag. */
+  [data-lyrics-body] {
+    line-height: 1.85;
+    letter-spacing: 0.005em;
+  }
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Collected words in the lyrics: a quiet marker, never a loud highlight. */
+@utility word-marked {
+  color: var(--color-mark);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-mark);
+  text-underline-offset: 0.22em;
+}
+
+@utility word-premark {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-muted-foreground);
+  text-underline-offset: 0.22em;
+}
