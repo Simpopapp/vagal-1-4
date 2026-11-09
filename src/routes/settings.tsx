@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { AccountSection } from "@/components/settings/AccountSection";
+import { ProviderSection } from "@/components/settings/ProviderSection";
 import { getLevel, getTouchMode, resetLocalData, setLevel, setTouchMode } from "@/lib/db/repo";
 import { LEVELS, type Level, type TouchMode } from "@/lib/types";
 
@@ -150,6 +151,8 @@ function SettingsPage() {
           ))}
         </CardContent>
       </Card>
+
+      <ProviderSection />
 
       <AccountSection />
 
