@@ -25,6 +25,15 @@ export type SyncSummary = {
   pulled: number;
 };
 
+/**
+ * Settings keys that never leave this device (PRD2 E3). The user's own API
+ * key lives under `aiProviderKey`; pushing it would store the secret in the
+ * cloud, and pulling it would overwrite another device's key. Both directions
+ * filter this list, so the protection is structural rather than a caller's
+ * responsibility.
+ */
+export const LOCAL_ONLY_SETTINGS: readonly string[] = ["aiProviderKey"];
+
 /* ------------------------------------------------------------------ push */
 
 export async function pushAll(userId: string): Promise<number> {
@@ -150,7 +159,9 @@ export async function pushAll(userId: string): Promise<number> {
     pushed += reviews.length;
   }
 
-  const settings = await getAll<Settings>(STORES.settings);
+  const settings = (await getAll<Settings>(STORES.settings)).filter(
+    (s) => !LOCAL_ONLY_SETTINGS.includes(s.key),
+  );
   if (settings.length > 0) {
     const { error } = await supabase.from("user_settings").upsert(
       settings.map((s) => ({ user_id: userId, key: s.key, value: s.value })),
@@ -272,6 +283,7 @@ export async function pullAll(): Promise<number> {
     .select("*");
   if (settingsError) throw new Error(`leitura de ajustes falhou: ${settingsError.message}`);
   for (const row of settings ?? []) {
+    if (LOCAL_ONLY_SETTINGS.includes(row.key)) continue;
     await put<Settings>(STORES.settings, {
       key: row.key as Settings["key"],
       value: row.value as Settings["value"],

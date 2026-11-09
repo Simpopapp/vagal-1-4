@@ -1,11 +1,21 @@
-# Roadmap — remix em andamento (project1)
+# Roadmap — remix em andamento (project2)
 
-Fonte de verdade de fases: `.opencode/roadmap-proj1.md`. Este arquivo rastreia o trabalho desta sessão.
+Fonte de verdade de fases: `.opencode/roadmap-proj2.md` (project1 concluído; ver `.opencode/roadmap-proj1.md`). Este arquivo rastreia o trabalho desta sessão.
 
 ## Bloqueio vigente
-- AI gateway responde 402 `payment_required` (probe real em 2026-11-09). Bloqueia: F1 `interpret.ts`, geração real de cards, F5 dossiê, pré-marcação.
+- AI gateway responde 402 `payment_required` (probe real em 2026-11-09). Bloqueia: F1 `interpret.ts`, geração real de cards, F5 dossiê, pré-marcação. O project2 (provedor próprio) é justamente o caminho do usuário para contornar isso.
 
-## Esta sessão — remix iniciado (2026-11-09)
+## Esta sessão — remix reativado (2026-11-09, project2)
+- [x] Banco novo conferido: as 7 tabelas do app existem com RLS + 4 políticas cada (conferido por query); o conjunto de migrations rescaffoldado vazio está coerente com o banco
+- [x] Pilares do project2 criados: `prd-project2.md` + `roadmap-proj2.md` (project2.md já existia)
+- [x] G0 contratos: `providers.ts` (catálogo de 10 provedores, 6 com opção grátis), chaves `aiProvider`/`aiProviderKey` nos tipos, helpers no repo, filtro `LOCAL_ONLY_SETTINGS` no sync (a chave nunca sai do aparelho) — 18 testes verdes, tsgo exit 0
+- [x] G1 cliente + roteador de IA (subagente s1 entregou o código no relatório por restrição de sandbox; agente principal aplicou e testou — 17 testes novos verdes)
+- [x] G2 seção de provedor nos ajustes (subagente s2 entregou o componente em /tmp pela mesma restrição; agente principal aplicou e verificou)
+- [x] G3 integração + gates globais: 139 testes verdes · tsgo exit 0 · build OK · fluxo real no browser (Groq + chave inválida → erro honesto do 401 real; reload → chave mascarada; voltar ao padrão → config preservada)
+
+**project2 concluído.** Os dois subagentes não conseguiram escrever no repositório (restrição de sandbox do ambiente); em remixes futuros, considerar entregar pacotes diretamente pelo agente principal ou verificar a permissão de escrita antes de spawnar.
+
+## Sessões anteriores — project1 concluído
 - [x] Migrations do remix conferidas: `drizzle/migrations` só tem `_journal.json` com `entries: []`, sem `.sql` copiados, `schema.ts` no placeholder e 0 linhas no diário do banco → histórico coerente com o banco novo (as 7 tabelas do app já existem nele, com RLS + GRANT conferidos por query)
 - [x] Fluxo real no browser verde: busca → "era essa?" → letra do Vagalume → toque na palavra → vocabulário, 0 erros de console
 - [x] Corrigido o dobrador de palavras: `rolling` virava `rol` (e `called`→`cal`, `missed`→`mis`, `taller`→`tal`) porque a regra de consoante dobrada valia também para bases que já terminam dobradas. Agora só dobra o que o sufixo criou; `-e` mudo volta só para terminações seguras; comparativos incertos ficam inteiros

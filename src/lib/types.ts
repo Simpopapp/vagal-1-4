@@ -165,7 +165,11 @@ export type Review = {
 };
 
 export type Settings = {
-  key: "level" | "touchMode" | "premarking" | "lastSearch";
+  /**
+   * `aiProvider` holds the serialized ProviderConfig and syncs normally;
+   * `aiProviderKey` is the user's own API key and is local-only (PRD2 E3).
+   */
+  key: "level" | "touchMode" | "premarking" | "lastSearch" | "aiProvider" | "aiProviderKey";
   value: string | number | boolean;
 };
 

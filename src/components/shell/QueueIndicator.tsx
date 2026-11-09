@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { routedGenerate } from "@/lib/ai/generate";
 import { listQueueByStatus } from "@/lib/db/repo";
 import { startQueueWorker, stopQueueWorker } from "@/lib/queue/worker";
 
@@ -25,7 +26,7 @@ export function QueueIndicator() {
     };
 
     void refresh();
-    const stop = startQueueWorker(undefined, () => void refresh());
+    const stop = startQueueWorker(routedGenerate, () => void refresh());
     const poll = setInterval(() => void refresh(), 5_000);
 
     return () => {
